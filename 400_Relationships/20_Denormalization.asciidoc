@@ -1,11 +1,13 @@
 [[denormalization]]
-=== Denormalizing Your Data
+=== Denormalizing Your Data反向规格化你的数据
 
 The way to get the best search performance out of Elasticsearch is to use it
 as it is intended, by((("relationships", "denormalizing your data")))((("denormalization", "denormalizing data at index time")))
 http://en.wikipedia.org/wiki/Denormalization[denormalizing] your data at index
 time. Having redundant copies of data in each document that requires access to
 it removes the need for joins.
+使用 Elasticsearch 得到最好的搜索性能的方法是有目的的通过在索引时进行反向规格化 ((("relationships", "denormalizing your data")))((("denormalization", "denormalizing data at index time")))
+http://en.wikipedia.org/wiki/Denormalization[denormalizing]。对每个文档保持一定数量的冗余副本可以在需要访问时避免进行关联。
 
 If we want to be able to find a blog post by the name of the user who wrote it,
 include the user's name in the blog-post document itself:
@@ -53,4 +55,3 @@ GET /my_index/blogpost/_search
 The advantage of data denormalization is speed.  Because each document
 contains all of the information that is required to determine whether it
 matches the query, there is no need for expensive joins.
-
