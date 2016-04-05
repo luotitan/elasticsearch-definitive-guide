@@ -1,5 +1,5 @@
 [[concurrency-solutions]]
-=== Solving Concurrency Issues解决并发问题
+=== 解决并发问题
 
 问题在于当我们要允许多个人 _在同一时间_ 重命名文件或目录。想象一下，你正在重命名 `/clinton` 目录，其中包含了成百上千的文件。
 同时，另一个用户对单个文件 `/clinton/projects/elasticsearch/README.txt` 进行了重命名。这个用户的操作修改，虽然在你的操作开始后进行，可能会更迅速的完成。
@@ -21,9 +21,9 @@
 如果你不使用关系型存储，这些并发问题就需要在 Elasticsearch 事务水准进行处理。
 以下是三个使用 ElasticSearch 的实用解决方案，所有这一切都涉及某种形式的锁：
 
-* Global Locking 全局锁
-* Document Locking 文档锁
-* Tree Locking 树锁
+* 全局锁
+* 文档锁
+* 树锁
 
 [TIP]
 ==================================================
@@ -77,7 +77,7 @@ PUT /fs/lock/_bulk
 如果一些文件已被锁定，部分的 `bulk` 请求将失败，我们将不得不再次尝试。
 
 当然，如果我们试图再次锁定 _所有_ 的文件， 我们以前使用的 `create` 语句将会失败，因为任何文件都已被我们锁定！
-我们需要使用一个 `update` 请求通过一个 `upsert` 参数以及这个 `script`，而不是一个简单的 `create` 语句：
+我们需要使用一个 `update` 请求通过一个 `upsert` 参数以及这个 `script` ，而不是一个简单的 `create` 语句：
 
 [source,groovy]
 --------------------------
@@ -105,7 +105,7 @@ POST /fs/lock/1/_update
 }
 --------------------------
 
-如果文档不存在，该 `upsert` 文档操作是和前面 `create` 请求相同的插入操作。但是，如果该文件 _确实_ 存在，该脚本查看存储在文档上的 `process_id`。
+如果文档不存在，该 `upsert` 文档操作是和前面 `create` 请求相同的插入操作。但是，如果该文件 _确实_ 存在，该脚本查看存储在文档上的 `process_id` 。
 如果 `process_id` 匹配，不进行更新动作（ `noop` ）但是脚本返回成功。如果是不同的， `assert false` 抛出一个异常，因此你知道该锁已失败。
 
 一旦所有锁已成功创建，你就可以继续进行你的变更。
@@ -157,14 +157,10 @@ PUT /fs/lock/_bulk
   "lock_count": 1 <1>
 }
 --------------------------
-<1> The `lock_count` records the number of processes that hold a shared lock.
- `lock_count` 记录持有共享锁进程的数量。
+<1> `lock_count` 记录持有共享锁进程的数量。
 
-A process that wants to rename `/clinton/projects/elasticsearch/README.txt`
-needs an _exclusive_ lock on that file, and a _shared_ lock on `/clinton`,
-`/clinton/projects`, and `/clinton/projects/elasticsearch`.
-一个希望对 `/clinton/projects/elasticsearch/README.txt` 进行重命名的进程需要在这个文件上有一个 _独占_ 锁，
-以及在 `/clinton` 、 `/clinton/projects` 和 `/clinton/projects/elasticsearch`有一个 _共享_ 锁。
+希望对 `/clinton/projects/elasticsearch/README.txt` 进行重命名的进程需要在这个文件上有 _独占锁_ ，
+以及在 `/clinton` 、 `/clinton/projects` 和 `/clinton/projects/elasticsearch` 有 _共享锁_ 。
 
 一个简单的 `create` 请求将满足独占锁的需要，但共享锁需要脚本的更新来实现一些额外的逻辑：
 
@@ -193,7 +189,7 @@ POST /fs/lock/%2Fclinton/_update <1>
   { assert false }; ctx._source.lock_count++"
 }
 --------------------------
-<1> 文档的 ID 是 `/clinton`，经过URL编码后成为 `%2fclinton`。
+<1> 文档的 ID 是 `/clinton` ，经过URL编码后成为 `%2fclinton` 。
 <2> `upsert` 文档如果不存在，则会被插入。
 
 一旦我们成功地在所有的父目录中获得一个共享锁，我们尝试在文件本身 `create` 一个独占锁：
@@ -228,7 +224,7 @@ if (--ctx._source.lock_count == 0) {
   ctx.op = 'delete' <1>
 }
 --------------------------
-<1> 一旦 `lock_count` 达到0， `ctx.op` 会从 `update` 被修改成  `delete`。
+<1> 一旦 `lock_count` 达到0， `ctx.op` 会从 `update` 被修改成  `delete` 。
 
 此更新请求将逆序为每个父目录运行，从最长到最短：
 
@@ -245,7 +241,7 @@ POST /fs/lock/%2Fclinton%2fprojects%2felasticsearch/_update
 [NOTE]
 =====================================
 
-这三个方案--全局，文档，或树锁--都没有处理锁最棘手的问题：如果持有锁的进程死了怎么办？
+这三个方案--全局、文档或树锁--都没有处理锁最棘手的问题：如果持有锁的进程死了怎么办？
 
 一个进程的意外死亡给我们留下了2个问题：
 
@@ -257,4 +253,4 @@ POST /fs/lock/%2Fclinton%2fprojects%2felasticsearch/_update
 =====================================
 
 当非规范化是许多项目的一个很好的选择时，需要锁方案会带来复杂的实现逻辑。
-作为替代方案，Elasticsearch 提供两个模型帮助我们处理相关联的实体： _嵌套的对象_ 和 _亲子关系_。
+作为替代方案，Elasticsearch 提供两个模型帮助我们处理相关联的实体： _嵌套的对象_ 和 _亲子关系_ 。
