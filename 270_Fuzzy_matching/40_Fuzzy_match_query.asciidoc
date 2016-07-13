@@ -1,7 +1,7 @@
 [[fuzzy-match-query]]
 === 模糊匹配查询
 
-`match` 查询支持模糊匹配的开箱即用：
+`match` 查询支持((("typoes and misspellings", "fuzzy match query")))((("match query", "fuzzy matching")))((("fuzzy matching", "match query")))开箱即用的模糊匹配：
 
 [source,json]
 -----------------------------------
@@ -39,4 +39,4 @@ GET /my_index/my_type/_search
 
 `match` 和 `multi_match` 查询都支持 `prefix_length` 和 `max_expansions` 参数。
 
-TIP: 模糊性只能在 `match` and `multi_match` 查询中使用。不能使用在短语匹配，常用词项，或 `cross_fields` 匹配。
+TIP: 模糊性（Fuzziness）只能在 `match` and `multi_match` 查询中使用。不能使用在短语匹配、常用词项或 `cross_fields` 匹配。
