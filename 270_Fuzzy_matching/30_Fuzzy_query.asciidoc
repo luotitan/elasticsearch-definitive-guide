@@ -34,7 +34,7 @@ GET /my_index/my_type/_search
 `fuzzy` 查询是一个词项级别的查询，所以它不做任何分析。它通过某个词项以及指定的 `fuzziness` 查找到词典中所有的词项。
 `fuzziness` 默认设置为 `AUTO` 。
 
-在我们的例子中， `surprise` 比较 `surprise` 和 `surprised` 都在编辑距离2以内，
+在我们的例子中， `surprise` 比较 `surprise` 和 `surprised` 都在编辑距离 2 以内，
 所以文档1和3匹配。我们能够减少匹配度 ，通过下面的查询方法只有 `surprise` 匹配：
 
 [source,json]
@@ -68,8 +68,8 @@ GET /my_index/my_type/_search
 
 `prefix_length`::
 
-((("prefix_length parameter")))不能被 ``模糊化'' 的初始字母数。
-大部分的拼写错误发生在吃的结尾，而不是词的开始。
+((("prefix_length parameter")))不能被 ``模糊化'' 的初始字符数。
+大部分的拼写错误发生在词的结尾，而不是词的开始。
 例如通过将 `prefix_length` 设置为 `3`，你可能够显著降低匹配的词项数量。
 
 `max_expansions`::
