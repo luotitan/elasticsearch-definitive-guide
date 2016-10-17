@@ -2,7 +2,7 @@
 == 执行分布式检索
 
 在继续之前，我们将绕道讨论一下在分布式环境中搜索是怎么执行的。
-((("distributed search execution"))) 这比我们在 <<distributed-docs>> 章节讨论的基本的 _增-删-改-查_ (CRUD)请求要复杂一些。
+((("distributed search execution"))) 这比我们在 <<distributed-docs>> 章节讨论的基本的 _增-删-改-查_ (CRUD)((("CRUD (create-read-update-delete) operations")))请求要复杂一些。
 
 
 .内容提示
@@ -10,7 +10,7 @@
 
 你可以根据兴趣阅读本章内容。你并不需要为了使用 Elasticsearch 而理解和记住所有的细节。
 
-这章的阅读目的只为初步了解下工作原理，假使将来需要时可以及时找到这些知识，
+这章的阅读目的只为初步了解下工作原理，以便将来需要时可以及时找到这些知识，
 但是不要被细节所困扰。
 
 ****
