@@ -8,7 +8,7 @@
 
 
 假设我们有1000个文档包含 ``Schwarzenegger`` ，只是一个文档的出现拼写错误 ``Schwarzeneger`` 。
-根据 <<tfidf,term frequency/inverse document frequency>> 理论，这个拼写错误文档比拼写正确的相关度更高，因为它更少在文档中出现！
+根据 <<tfidf,term frequency/inverse document frequency>> 理论，这个拼写错误文档比拼写正确的相关度更高，因为错误拼写出现在更少在文档中！
 
 
 换句话说，如果我们对待模糊匹配((("match query", "fuzzy match query")))类似其他匹配方法，我们将偏爱错误的拼写超过了正确的拼写，这会让用户抓狂。
