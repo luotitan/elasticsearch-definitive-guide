@@ -6,7 +6,7 @@
 相反，我们可以扩大范围以包括 _可能_ 的匹配，而根据相关性得分将更好的匹配推到结果集的顶部。
 
 事实上，只能完全匹配的全文搜索可能会困扰你的用户。
-你难道不希望在搜索 `quick brown fox` 时匹配一个包含  `fast brown foxes` 的文档，
+难道不希望在搜索 `quick brown fox` 时匹配一个包含  `fast brown foxes` 的文档，
 搜索 `Johnny Walker` 同时匹配 `Johnnie Walker` ，搜索 `Arnold Shcwarzenneger` 同时匹配 `Arnold Schwarzenegger` ?
 
 如果存在完全符合用户查询的文档，他们应该出现在结果集的顶部，而较弱的匹配可以被包含在列表的后面。
