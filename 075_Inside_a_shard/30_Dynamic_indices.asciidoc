@@ -51,7 +51,7 @@ image::images/elas_1103.png["After a commit, a new segment is added to the index
 这种方式可以用相对较低的成本将新文档添加到索引。
 
 [[deletes-and-updates]]
-==== Deletes and Updates删除和更新
+==== 删除和更新
 
 段是不可改变的，所以既不能从把文档从旧的段中移除，也不能修改旧的段来进行反映文档的更新。
 取而代之的是，每个提交点((("deleted documents")))会包含一个 `.del` 文件，文件中会列出这些被删除文档的段信息。
