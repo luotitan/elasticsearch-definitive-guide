@@ -1,13 +1,13 @@
 [[near-real-time]]
 === 近实时搜索
 
-随着按段（per-segment）搜索的发展，((("searching", "near real-time search")))从新文档被索引到其对搜索可见的延迟显著地降低了。新文档在几分钟之内即可被检索，但这样还是不够快。
+随着按段（per-segment）搜索的发展，((("searching", "near real-time search")))一个新的文档从索引到可被搜索的延迟显著降低了。新文档在几分钟之内即可被检索，但这样还是不够快。
 
 磁盘在这里成为了瓶颈。((("committing segments to disk")))((("fsync")))((("segments", "committing to disk")))提交（Commiting）一个新的段到磁盘需要一个
 http://en.wikipedia.org/wiki/Fsync[`fsync`] 来确保段被物理性地写入磁盘，这样在断电的时候就不会丢失数据。
-但是 `fsync` 操作代价很大; 如果每次索引一个文档都去执行一次的话会造成很大的性能问题。
+但是 `fsync` 操作代价很大; 如果每次索引一个文档都去执行一次的话会造成很大的性能问题。一个新的文档从索引到可被搜索的延迟显著降低了。
 
-我们需要的是一个更轻量的方式来使一个文档可被搜索，这意味着 `fsync` 要从等式中被移除。
+我们需要的是一个更轻量的方式来使一个文档可被搜索，这意味着 `fsync` 要从整个过程中被移除。
 
 在Elasticsearch和磁盘之间是文件系统缓存。((("filesystem cache"))) 像之前描述的一样，
 在内存索引缓冲区（ <<img-pre-refresh>> ）中的文档会被写入到一个新的段中（ <<img-post-refresh>> ）。
