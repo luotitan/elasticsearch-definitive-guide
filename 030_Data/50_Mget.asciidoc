@@ -3,8 +3,8 @@
 
 Elasticsearch 的速度已经很快了，但甚至能更快。((("documents", "retrieving multiple")))
 将多个请求合并成一个，避免单独处理每个请求花费的网络时延和开销。
-如果你需要从 Elasticsearch 检索很多文档，那么将这些检索请求放在一个请求中，
-使用 _multi-get_ 或者  `mget` API((("mget (multi-get) API")))来实现，而不是一个接一个文档的请求，就会更快得到结果。
+如果你需要从 Elasticsearch 检索很多文档，那么使用 _multi-get_ 或者 `mget` API((("mget (multi-get) API")))
+来将这些检索请求放在一个请求中，将比逐个文档请求更快地检索到全部文档。
 
 
 `mget` API 要求有一个 `docs` 数组作为参数，每个((("docs array", "in request")))元素包含需要检索文档的元数据，
@@ -32,8 +32,9 @@ GET /_mget
 --------------------------------------------------
 // SENSE: 030_Data/50_Mget.json
 
-该响应体也包含一个 `docs` 数组((("docs array", "in response body"))),
-这个数组包含一系列的文档，这些文档的顺序和请求时的顺序相同。其中的每一个响应都和使用单个 <<get-doc,`get` request>> 请求所得到的响应体相同：
+该响应体也包含一个 `docs` 数组((("docs array", "in response body")))，
+对于每一个在请求中指定的文档，这个数组中都包含有一个对应的响应，且顺序与请求中的顺序相同。
+其中的每一个响应都和使用单个 <<get-doc,`get` request>> 请求所得到的响应体相同：
 
 
 [source,js]
@@ -122,7 +123,7 @@ GET /website/blog/_mget
 // SENSE: 030_Data/50_Mget.json
 <1> 未找到该文档。
 
-事实上第二个文档没有找到，并没有影响第一个文档的检索。每个文档都是单独检索和报告的。
+事实上第二个文档未能找到并不妨碍第一个文档被检索到。每个文档都是单独检索和报告的。
 
 [NOTE]
 ====
