@@ -2,9 +2,9 @@
 === 标准分词器
 
 _分词器_ 接受一个字符串作为输入，将((("words","identifying","using standard tokenizer")))((("standard tokenizer")))((("tokenizers")))这个字符串拆分成独立的词或 _语汇单元（token）_
-（可能会丢弃一些标点符号等字符），然后输出一个 _词汇单元流（token stream）_ 。
+（可能会丢弃一些标点符号等字符），然后输出一个 _语汇单元流（token stream）_ 。
 
-有趣的是用于词汇 _识别_ 的算法。 `whitespace` （空白字符）分词器((("whitespace tokenizer")))按空白字符 -- 空格、tabs、换行符等等进行简单拆分 -- 然后假定连续的非空格字符组成了一个语汇单元。例如：
+有趣的是用于词汇 _识别_ 的算法。 `whitespace` （空白字符）分词器((("whitespace tokenizer")))按空白字符 —— 空格、tabs、换行符等等进行简单拆分 —— 然后假定连续的非空格字符组成了一个语汇单元。例如：
 
 [source,js]
 --------------------------------------------------
@@ -39,8 +39,8 @@ You're my 'favorite'.
 [TIP]
 ==================================================
 
-`uax_url_email` 分词器((("uax_url_email tokenizer")))和 `standard` 分词器工作方式完全相同。
-区别在于它能识别((("email addresses and URLs, tokenizer for"))) email 地址和 URLs 并输出为单个语汇单元。
+`uax_url_email` 分词器((("uax_url_email tokenizer")))和 `standard` 分词器工作方式极其相同。
+区别只在于它能识别((("email addresses and URLs, tokenizer for"))) email 地址和 URLs 并输出为单个语汇单元。
 `standard` 分词器则不一样，会将 email 地址和 URLs 拆分成独立的单词。
 例如，email 地址 `joe-bloggs@foo-bar.com` 的分词结果为 `joe` 、 `bloggs` 、 `foo` 、 `bar.com` 。
 
@@ -49,4 +49,4 @@ You're my 'favorite'.
 
 `standard` 分词器是大多数语言分词的一个合理的起点，特别是西方语言。
 事实上，它构成了大多数特定语言分析器的基础，如 `english` 、`french` 和 `spanish` 分析器。
-它也支持亚洲语言，只是有些缺陷，你可以考虑替换为 `icu_tokenizer` ，((("icu_tokenizer")))通过 ICU 插件提供使用。
+它也支持亚洲语言，只是有些缺陷，你可以考虑通过 ICU 插件的方式使用 `icu_tokenizer` ((("icu_tokenizer")))进行替换。
