@@ -1,8 +1,8 @@
 [[sorting]]
 == 排序与相关性
 
-默认情况下，返回的结果是按照 _相关性_ 进行排序的&#x2014;最相关的文档排在最前。((("sorting", "by relevance")))((("relevance", "sorting results by")))
-在本章的稍后，我们会解释 _相关性_ 意味着什么以及它是如何计算的，
+默认情况下，返回的结果是按照 _相关性_ 进行排序的&#x2014;&#x2014;最相关的文档排在最前。((("sorting", "by relevance")))((("relevance", "sorting results by")))
+在本章的后面部分，我们会解释 _相关性_ 意味着什么以及它是如何计算的，
 不过让我们首先看看 `sort` 参数以及如何使用它。
 
 [[_Sorting]]
@@ -103,8 +103,7 @@ GET /_search
 }
 --------------------------------------------------
 <1> `_score` 不被计算, 因为它并没有用于排序。
-<2> The value of the `date` field, expressed as milliseconds since the epoch,
-    is returned in the `sort` values.`date` 字段的值表示为自 epoch (January 1, 1970 00:00:00 UTC)以来的毫秒数，通过 `sort` 字段的值进行返回。
+<2> `date` 字段的值表示为自 epoch (January 1, 1970 00:00:00 UTC)以来的毫秒数，通过 `sort` 字段的值进行返回。
 
 首先我们在每个结果中有((("date field, sorting search results by")))一个新的名为 `sort` 的元素，它包含了我们用于排序的值。
 在这个案例中，我们按照 `date` 进行排序，在内部((("milliseconds-since-the-epoch (date)")))被索引为 _自 epoch 以来的毫秒数_ 。
