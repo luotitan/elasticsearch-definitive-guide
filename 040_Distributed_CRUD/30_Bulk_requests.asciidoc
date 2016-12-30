@@ -1,7 +1,7 @@
 [[distrib-multi-doc]]
 === 多文档模式
 
-`mget` 和 `bulk` API 的((("mget (multi-get) API", "retrieving multiple documents, process of")))((("documents", "retrieving multiple with mget")))模式类似于单个文档。区别在于协调节点知道每个文档存在于哪个分片中。
+`mget` 和 `bulk` API 的((("mget (multi-get) API", "retrieving multiple documents, process of")))((("documents", "retrieving multiple with mget")))模式类似于单文档模式。区别在于协调节点知道每个文档存在于哪个分片中。
 它将整个多文档请求分解成 _每个分片_ 的多文档请求，并且将这些请求并行转发到每个参与节点。
 
 协调节点一旦收到来自每个节点的应答，就将每个节点的响应收集整理成单个响应，返回给客户端，如 <<img-distrib-mget>> 所示。
