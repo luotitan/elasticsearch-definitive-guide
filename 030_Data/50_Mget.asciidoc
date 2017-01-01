@@ -1,5 +1,5 @@
 [[_Retrieving_Multiple_Documents]]
-=== 检索多个文档
+=== 取回多个文档
 
 Elasticsearch 的速度已经很快了，但甚至能更快。((("documents", "retrieving multiple")))
 将多个请求合并成一个，避免单独处理每个请求花费的网络时延和开销。
